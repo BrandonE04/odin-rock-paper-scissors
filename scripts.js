@@ -21,6 +21,7 @@ scissorsButton.addEventListener("click", () => {
 const hScore = document.querySelector("#hScore");
 const cScore = document.querySelector("#cScore");
 const curEvent = document.querySelector("#curEvent");
+const winner = document.querySelector("#winner");
 
 
 function getComputerChoice(){
@@ -63,26 +64,33 @@ function playRound(humanChoice, computerChoice){
         }
         if(win){
             curEvent.textContent = `You Win! ${humanChoice} beats ${computerChoice}`;
-            humanScore++;
         }
         else{
             curEvent.textContent = `You Lose! ${computerChoice} beats ${humanChoice}`;
-            computerScore++;
         }
+        updateScore(win);
 }
 
+function updateScore(win){
+    if(win){
+        humanScore++;
+    }
+    else{
+        computerScore++;
+    }
 
-    // for(let curRound = 0; curRound < rounds; curRound++){
-    //     playRound(getHumanChoice(),getComputerChoice());
-    //     console.log(`Human Score: ${humanScore}`);
-    //     console.log(`Computer Score: ${computerScore}`);
-    // }
-    // if(humanScore > computerScore){
-    //     console.log("You win!");
-    // }
-    // else if(computerScore > humanScore){
-    //     console.log("You lose!");
-    // }
-    // else{
-    //     console.log("You tied!");
-    // }
+    hScore.textContent = `Human Score: ${humanScore}`;
+    cScore.textContent = `Computer Score: ${computerScore}`;
+
+    if(humanScore === 5){
+        winner.textContent = "You Win!";
+    }
+    else if(computerScore === 5){
+        winner.textContent = "You Lose!";
+    }
+    else{
+        return;
+    }
+    humanScore = 0;
+    computerScore = 0;
+}
